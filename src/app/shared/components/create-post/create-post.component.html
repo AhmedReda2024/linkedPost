@@ -1,0 +1,192 @@
+<div class="py-6">
+  <div class="max-w-2xl mx-auto px-4">
+    <!-- Create Post Card -->
+    <div
+      #modelEle
+      class="toggle-model bg-white rounded-lg shadow-md border border-gray-200 p-4 mb-4"
+    >
+      <!-- Post Input Section -->
+      <div class="flex items-start space-x-3 mb-4">
+        <!-- User Avatar -->
+        <img src="/images/profile.png" alt="User Avatar" class="w-10 h-10 rounded-full" />
+
+        <!-- Text Input -->
+        <div class="flex-1">
+          <input
+            (click)="toggleModel()"
+            readonly
+            type="text"
+            placeholder="What's on your mind, John?"
+            class="w-full px-4 py-3 bg-gray-100 border border-gray-200 cursor-pointer rounded-full focus:outline-none focus:bg-gray-200 transition placeholder-gray-500 text-gray-800"
+          />
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-gray-200 my-4"></div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-between">
+        <!-- Left Side Actions -->
+        <div class="flex items-center space-x-2">
+          <!-- Photo/Video Button -->
+          <button
+            class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition"
+          >
+            <svg
+              class="w-6 h-6 text-green-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-700 hidden sm:inline">Photo/Video</span>
+          </button>
+
+          <!-- Feeling/Activity Button -->
+          <button
+            class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition"
+          >
+            <svg
+              class="w-6 h-6 text-yellow-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-700 hidden sm:inline">Feeling/Activity</span>
+          </button>
+
+          <!-- Tag People Button -->
+          <button
+            class="items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition hidden md:flex"
+          >
+            <svg
+              class="w-6 h-6 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-700">Tag People</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- model -->
+
+      @if (showModel) {
+        <div class="bg-black/50 fixed inset-0" tabindex="-1" aria-hidden="true">
+          <div class="p-4 w-full md:w-1/2 fixed top-1/2 start-1/2 -translate-1/2">
+            <!-- Modal content -->
+            <div
+              class="relative bg-neutral-primary-soft border border-default rounded-base shadow-sm p-4 md:p-6"
+            >
+              <!-- Modal header -->
+              <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                <h3 class="text-lg font-medium text-heading">Add New Post</h3>
+                <button
+                  (click)="closeModel()"
+                  type="button"
+                  class="text-body cursor-pointer bg-gray-100 border border-gray-300 hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18 17.94 6M18 18 6.06 6"
+                    />
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+              </div>
+              <!-- Modal body -->
+              <form class="pt-4 md:pt-6" (submit)="onSubmitForm($event)">
+                <div class="mb-4">
+                  <textarea
+                    [formControl]="contentControl"
+                    id="message"
+                    rows="4"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
+                    placeholder="Write your thoughts here..."
+                  ></textarea>
+                </div>
+                <div class="mb-4">
+                  <label
+                    for="dropzone-file"
+                    class="flex flex-col cursor-pointer items-center justify-center w-full h-64 bg-neutral-secondary-medium border border-dashed border-default-strong rounded-base hover:bg-neutral-tertiary-medium"
+                  >
+                    <div class="flex flex-col items-center justify-center text-body pt-5 pb-6">
+                      <svg
+                        class="w-8 h-8 mb-4"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"
+                        />
+                      </svg>
+                      <p class="mb-2 text-sm">
+                        <span class="font-semibold">Click to upload</span> or drag and drop
+                      </p>
+                      <p class="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                    </div>
+                    <input
+                      (change)="changeFile($event)"
+                      id="dropzone-file"
+                      type="file"
+                      class="hidden"
+                    />
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  class="text-white cursor-pointer bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none w-full mb-3"
+                >
+                  Post
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

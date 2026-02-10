@@ -1,0 +1,9 @@
+<!-- create post -->
+<app-create-post></app-create-post>
+
+<!-- posts -->
+<div>
+  @for (post of postsList(); track post._id) {
+    <app-single-post [postData]="post"></app-single-post>
+  }
+</div>
